@@ -1,6 +1,27 @@
-- name: Slack Notification
-  if: always()
-  run: |
-    curl -X POST -H 'Content-type: application/json' \
-    --data '{"text":"GitHub Action Build Completed!"}' \
-    ${{ secrets.SLACK_WEBHOOK }}
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: List Files
+        run: ls -la
+
+      - name: Success Message
+        run: echo "Build Successful!"
+
+      - name: Slack Notification
+        if: always()
+        run: |
+          curl -X POST -H "Content-type: application/json" \
+          --data '{"text":"GitHub Action Build Completed!"}' \
+          ${{ secrets.SLACK_WEBHOOK }}
