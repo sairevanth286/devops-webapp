@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+k8s/
+ansible/
+Jenkinsfile
+implementation_plan.md
+task.md

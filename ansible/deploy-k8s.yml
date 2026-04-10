@@ -1,0 +1,16 @@
+---
+- name: Deploy E-commerce App to Kubernetes EKS
+  hosts: kubernetes_master
+  become: no
+  tasks:
+    - name: Apply Kubernetes Deployment
+      command: kubectl apply -f ../k8s/deployment.yaml
+      
+    - name: Apply Kubernetes Service
+      command: kubectl apply -f ../k8s/service.yaml
+      
+    - name: Apply Kubernetes HPA
+      command: kubectl apply -f ../k8s/hpa.yaml
+
+    - name: Wait for pods to be ready
+      command: kubectl rollout status deployment/ecommerce-app-deployment --timeout=120s
